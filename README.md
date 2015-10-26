@@ -9,5 +9,5 @@ Software.
   * Alex FLOREA [alex.florea0106@gmail.com]
   * Ionut PATULEA [TODO]
   * Oana SPATARELU [TODO]
-  * Tudor ZUGRAVU [TODO]
+  * Tudor ZUGRAVU [tudor.zugravu@gmail.com]
   * Andrei Manu VASILESCU [TODO]
