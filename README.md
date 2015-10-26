@@ -10,4 +10,4 @@ Software.
   * Ionut PATULEA [TODO]
   * Oana SPATARELU [TODO]
   * Tudor ZUGRAVU [tudor.zugravu@gmail.com]
-  * Andrei Manu VASILESCU [TODO]
+  * Andrei-Emanuel VASILESCU [andreivasilescu1@gmail.com]
