@@ -6,8 +6,8 @@ Software.
 
 # Membrii echipei
   * Razvan MATEI [matei.rm94@gmail.com]
-  * Alex FLOREA
-  * Ionut PATULEA
-  * Oana SPATARELU
-  * Tudor ZUGRAVU
-  * Manu
+  * Alex FLOREA [alex.florea0106@gmail.com]
+  * Ionut PATULEA [TODO]
+  * Oana SPATARELU [TODO]
+  * Tudor ZUGRAVU [TODO]
+  * Andrei Manu VASILESCU [TODO]
