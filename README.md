@@ -11,3 +11,8 @@ Software.
   * Oana SPATARELU [TODO]
   * Tudor ZUGRAVU [tudor.zugravu@gmail.com]
   * Andrei-Emanuel VASILESCU [andreivasilescu1@gmail.com]
+
+# FAQ
+  * Ce soluții software vă propuneți să utilizați?
+    * Ans.
+
