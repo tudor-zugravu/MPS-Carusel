@@ -24,4 +24,4 @@ In acest repo se afla rezolvarea [proiectului 1](http://elf.cs.pub.ro/mps/wiki/p
   * Care este agenda următoarei întâlniri de proiect (din laboratorul următor)? Dau dacă planificați o întâlnire înainte de următorul laborator.
     * TODO
   * Ce veți folosi pentru comunicare/colaborare?
-    * Intrucat suntem colegi de grupa si ne vedem foarte des la facultate, probabil cel mai folosit canal de comunicare va fi viu graiul. Alternativa online este Google Hangouts.
+    * Intrucat suntem colegi de grupa si ne vedem foarte des la facultate, probabil cel mai folosit canal de comunicare va fi prin viu grai. Alternativa online este Google Hangouts.
