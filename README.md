@@ -6,7 +6,7 @@ In acest repo se afla rezolvarea [proiectului 1](http://elf.cs.pub.ro/mps/wiki/p
   * Razvan MATEI [matei.rm94@gmail.com] - Dev
   * Alex FLOREA [alex.florea0106@gmail.com] - Dev
   * Ionut PATULEA [ionut.patulea@gmail.com] - Dev
-  * Oana SPATARELU [TODO] - Technical writer
+  * Oana SPATARELU [oana.spatarelu17@gmail.com] - Technical writer
   * Tudor ZUGRAVU [tudor.zugravu@gmail.com] - Dev / Tester
   * Andrei-Emanuel VASILESCU [andreivasilescu1@gmail.com] - Technical writer
 
