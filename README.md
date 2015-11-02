@@ -16,12 +16,12 @@ In acest repo se afla rezolvarea [proiectului 1](http://elf.cs.pub.ro/mps/wiki/p
     * Backend: Node.js/Firebase
     * PaaS: Heroku
   * Ce arhitectură de proiect urmăriți (în linii mari)?
-    * Pentru a eficientiza lucrul in echipa, ne propunem sa folosim o arhitectura Model View Controller, urmand sa ne impartim in subgrupe de cate 2 persoane responsabile pentru fiecare modul.
+    * Pentru a eficientiza lucrul in echipa, ne propunem sa folosim o arhitectura Model View Controller.
   * Care sunt responsabilitățile macro în cadrul echipei?
-    * TODO
+    * Vezi sectiunea Membrii echipei
   * Care este planul pentru următoarea săptămână (ce aveți de făcut fiecare)?
-    * TODO
+    * Vezi Changelog
   * Care este agenda următoarei întâlniri de proiect (din laboratorul următor)? Dau dacă planificați o întâlnire înainte de următorul laborator.
-    * TODO
+    * Vezi Changelog
   * Ce veți folosi pentru comunicare/colaborare?
     * Intrucat suntem colegi de grupa si ne vedem foarte des la facultate, probabil cel mai folosit canal de comunicare va fi prin viu grai. Alternativa online este Google Hangouts.
