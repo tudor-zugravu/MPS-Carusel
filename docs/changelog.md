@@ -6,3 +6,4 @@
   * am impartit responsabilitatile
   * wiki init
   * am creat folderul partajat ce va gazdui documentatia proiectului
+  * am rezolvat exercitiul de pair programming din lab 4
