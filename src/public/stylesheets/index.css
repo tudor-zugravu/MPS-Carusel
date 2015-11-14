@@ -18,10 +18,10 @@
 }
 
 #startNew {
-    background-color: #33FF00;
+    background-color: #993300;
 	-moz-border-radius: 15px;
 	-webkit-border-radius: 15px;
-	border: 5px solid #009900;
+	border: 5px solid #cc3300;
 	padding: 5px;
 }
 
@@ -62,7 +62,7 @@ div {
 	margin-left: auto;
 	margin-right: auto;
     border-radius: 20px;
-    background: url(../img/paper.jpg);
+    background: url(../img/wordsBc);
     background-position: center;
     background-repeat: repeat;
     padding: 10px;
@@ -70,6 +70,7 @@ div {
     height: 300px;
 	line-height:1em;
 	overflow: auto;
+	opacity: 0.8;
 }
 
 dialog {
