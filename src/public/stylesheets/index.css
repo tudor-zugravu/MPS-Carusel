@@ -17,6 +17,14 @@
     width: 100%;
 }
 
+#startNew {
+    background-color: #33FF00;
+	-moz-border-radius: 15px;
+	-webkit-border-radius: 15px;
+	border: 5px solid #009900;
+	padding: 5px;
+}
+
 body {
 	width:100%;
 	vertical-align: center;
