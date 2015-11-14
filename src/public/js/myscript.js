@@ -17,6 +17,7 @@ var usedIndices = [0, 0, 0, 0, 0, 0, 0, 0, 0];
 var score = 0;
 var timer = 60;
 var usedWords = [];
+var myVar;
 
 /*****************************************************************************/
 
@@ -28,7 +29,7 @@ $(document).ready(function() {
     setLetters();
     setWordInputBehaviour();
     setButtonBehaviour();
-    var myVar = setInterval(function(){ updateTimer() }, 1000);
+    myVar = setInterval(function(){ updateTimer() }, 1000);
 });
 
 /*****************************************************************************/
@@ -41,7 +42,7 @@ function updateTimer() {
     $('#Timer').html("Timer: " + timer.toString());
 
     if (timer == 0) {
-        var dialog = $('#window');
+        var dialog = document.getElementById('window');
         dialog.show();
         document.getElementById('no').onclick = function() {
             dialog.close();
@@ -50,6 +51,8 @@ function updateTimer() {
             location.reload();
             dialog.close();
         };
+
+        clearTimeout(myVar);
     } else {
         timer = timer - 1;
     }
