@@ -26,8 +26,12 @@ app.get('/', function (req, res) {
 
 app.get('/:word', function (req, res) {
   console.log(req.params.word);
-  // process
-  res.send('valid');
+  if (hasWord(req.params.word)) {
+        res.send('valid');
+    } else {
+        res.send('invalid');
+    }
+  
 });
 
 var server = app.listen(80, function () {
