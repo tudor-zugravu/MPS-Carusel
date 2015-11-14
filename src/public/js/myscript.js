@@ -14,6 +14,7 @@ var dice_input = [
 
 var letters;
 var usedIndices = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+var score = 0;
 
 /*****************************************************************************/
 
@@ -74,12 +75,15 @@ function setWordInputBehaviour() {
             $.get("/" + word, function(data) {
                 /* Valid */
                 if (data == "1") {
+                    score = score + 1;
+                    $('#Score').html("Score: " + score.toString());
+
                     $('#wordInput').css({'background-color': 'green'});
                     setTimeout(function() {
                         $('#wordInput').css({'background-color': 'white'});
                     }, 500);
 
-                    $('<div>').text(word).prepend($('<em/>').text('')).appendTo($('#ownWordsDiv'));;
+                    $('<div>').text(word).prepend($('<em/>').text('')).appendTo($('#ownWordsDiv'));
                     $('#ownWordsDiv')[0].scrollTop = $('#ownWordsDiv')[0].scrollHeight;
                 }
 
