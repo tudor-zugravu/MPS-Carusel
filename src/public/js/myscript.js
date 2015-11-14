@@ -18,10 +18,13 @@
 //   $('#messagesDiv')[0].scrollTop = $('#messagesDiv')[0].scrollHeight;
 // };
 
+$('#letter1').html('litera1');
+
 $('#wordInput').keypress(function (e) {
   if (e.keyCode == 13) {
     var name = $('#nameInput').val();
     var word = $('#wordInput').val();
+
     $('#wordInput').val('');
     console.log(name + " " + word)
   }
