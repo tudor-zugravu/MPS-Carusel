@@ -15,6 +15,7 @@ var dice_input = [
 var letters;
 var usedIndices = [0, 0, 0, 0, 0, 0, 0, 0, 0];
 var score = 0;
+var usedWords = [];
 
 /*****************************************************************************/
 
@@ -97,6 +98,23 @@ function setWordInputBehaviour() {
         if (e.keyCode == 13) {
             var word = $('#wordInput').val().toLowerCase();
 
+            /* Already used word */
+            if (usedWords.indexOf(word) != -1) {
+                $('#wordInput').css({'background-color': 'red'});
+                setTimeout(function() {
+                    $('#wordInput').css({'background-color': 'white'});
+                }, 500);
+
+                /* Clear */
+                for (i = 0; i < 9; i++) {
+                    usedIndices[i] = 0;
+                    $('#letter' + i).css({'background-color': 'gray'});
+                }
+                $('#wordInput').val('');
+
+                return true;
+            }
+
             /* Ask server for validation */
             $.get("/" + word, function(data) {
                 /* Valid */
@@ -112,6 +130,8 @@ function setWordInputBehaviour() {
 
                     $('<div>').text(word).prepend($('<em/>').text('')).appendTo($('#ownWordsDiv'));
                     $('#ownWordsDiv')[0].scrollTop = $('#ownWordsDiv')[0].scrollHeight;
+
+                    usedWords.push(word);
                 }
 
                 /* Invalid */
