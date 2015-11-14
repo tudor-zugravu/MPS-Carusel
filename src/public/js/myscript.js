@@ -9,6 +9,7 @@ var dice8 = "NSTRGB";
 var dice9 = "IIUELP";
 
 $( document ).ready(function() {
+    setWordInputBehaviour();
     var randNum = Math.floor(Math.random() * 6);
     $('#letter1').html(dice1.charAt(randNum));
     $('#letter2').html(dice2.charAt(randNum));
@@ -19,26 +20,34 @@ $( document ).ready(function() {
     $('#letter7').html(dice7.charAt(randNum));
     $('#letter8').html(dice8.charAt(randNum));
     $('#letter9').html(dice9.charAt(randNum));
-});
 
-$('#wordInput').keypress(function(e) {
-  if (e.keyCode == 13) {
-    var word = $('#wordInput').val();
+/* Set behaviour of word input */
+function setWordInputBehaviour() {
+  $('#wordInput').keypress(function(e) {
+    /* On enter pressed */
+    if (e.keyCode == 13) {
+      var word = $('#wordInput').val();
 
-    $.get("/" + word, function(data) {
-      if (data == 'valid') {
-        $('#wordInput').css({'background-color': 'green'});
-        setTimeout(function() {
-          $('#wordInput').css({'background-color': 'white'});
-        }, 500)
-      } else {
-        $('#wordInput').css({'background-color': 'red'});
-        setTimeout(function() {
-          $('#wordInput').css({'background-color': 'white'});
-        }, 500)
-      }
+      /* Ask server for validation */
+      $.get("/" + word, function(data) {
+        /* Valid */
+        if (data == "1") {
+          $('#wordInput').css({'background-color': 'green'});
+          setTimeout(function() {
+            $('#wordInput').css({'background-color': 'white'});
+          }, 500)
+        }
+        /* Invalid */
+        else {
+          $('#wordInput').css({'background-color': 'red'});
+          setTimeout(function() {
+            $('#wordInput').css({'background-color': 'white'});
+          }, 500)
+        }
 
-      $('#wordInput').val('');
-    });
-  }
-});
+        /* Clear word input */
+        $('#wordInput').val('');
+      });
+    }
+  });
+}
