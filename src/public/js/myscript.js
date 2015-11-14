@@ -13,6 +13,7 @@ var dice_input = [
 ];
 
 var letters;
+var usedIndices = [0, 0, 0, 0, 0, 0, 0, 0, 0];
 
 /*****************************************************************************/
 
@@ -23,6 +24,7 @@ var letters;
 $(document).ready(function() {
     setLetters();
     setWordInputBehaviour();
+    setButtonBehaviour();
 });
 
 /*****************************************************************************/
@@ -44,10 +46,29 @@ function setLetters() {
 
 /* Set behaviour of word input */
 function setWordInputBehaviour() {
+    $('#wordInput').keydown(function(e) {
+        if (e.keyCode == 8) {
+            var word = $('#wordInput').val().toLowerCase();
+            if (word.length >= 1) {
+                var deletedLetter = word.slice(-1);
+
+                var indexOfDeletedLetter = letters.toLowerCase().indexOf(deletedLetter);
+                while (usedIndices[indexOfDeletedLetter] == 0) {
+                    indexOfDeletedLetter = letters.toLowerCase().indexOf(deletedLetter,
+                                                                         indexOfDeletedLetter + 1);
+                }
+                if (indexOfDeletedLetter > -1) {
+                    $('#letter' + indexOfDeletedLetter).css({'background-color': 'gray'});
+                    usedIndices[indexOfDeletedLetter] = 0;
+                }
+            }
+        }
+    });
+
     $('#wordInput').keypress(function(e) {
         /* On enter pressed */
         if (e.keyCode == 13) {
-            var word = $('#wordInput').val();
+            var word = $('#wordInput').val().toLowerCase();
 
             /* Ask server for validation */
             $.get("/" + word, function(data) {
@@ -70,7 +91,11 @@ function setWordInputBehaviour() {
                     }, 500)
                 }
 
-                /* Clear word input */
+                /* Clear */
+                for (i = 0; i < 9; i++) {
+                    usedIndices[i] = 0;
+                    $('#letter' + i).css({'background-color': 'gray'});
+                }
                 $('#wordInput').val('');
             });
         }
@@ -81,16 +106,21 @@ function setWordInputBehaviour() {
 
             /* Valid letter */
             var indexOfLastLetter = letters.toLowerCase().indexOf(lastLetter);
+            while (usedIndices[indexOfLastLetter] == 1) {
+                indexOfLastLetter = letters.toLowerCase().indexOf(lastLetter, indexOfLastLetter + 1);
+            }
             if (indexOfLastLetter > -1) {
                 $('#letter' + indexOfLastLetter).css({'background-color': 'red'});
-                letters = letters.substr(0, indexOfLastLetter) + '#' +
-                          letters.substr(indexOfLastLetter + 1);
+                usedIndices[indexOfLastLetter] = 1;
             } else {
                 return false;
             }
         }
     });
+}
 
+
+function setButtonBehaviour() {
     $('#startNew').click(function () {
         var dialog = document.getElementById('window');
         dialog.show();
