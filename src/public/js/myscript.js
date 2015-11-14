@@ -1,25 +1,35 @@
 $( document ).ready(function() {
-  // Update letters values
+  setWordInputBehaviour();
 });
 
-$('#wordInput').keypress(function(e) {
-  if (e.keyCode == 13) {
-    var word = $('#wordInput').val();
+/* Set behaviour of word input */
+function setWordInputBehaviour() {
+  $('#wordInput').keypress(function(e) {
+    /* On enter pressed */
+    if (e.keyCode == 13) {
+      var word = $('#wordInput').val();
 
-    $.get("/" + word, function(data) {
-      if (data == "1") {
-        $('#wordInput').css({'background-color': 'green'});
-        setTimeout(function() {
-          $('#wordInput').css({'background-color': 'white'});
-        }, 500)
-      } else {
-        $('#wordInput').css({'background-color': 'red'});
-        setTimeout(function() {
-          $('#wordInput').css({'background-color': 'white'});
-        }, 500)
-      }
+      /* Ask server for validation */
+      $.get("/" + word, function(data) {
+        /* Valid */
+        if (data == "1") {
+          $('#wordInput').css({'background-color': 'green'});
+          setTimeout(function() {
+            $('#wordInput').css({'background-color': 'white'});
+          }, 500)
+        }
 
-      $('#wordInput').val('');
-    });
-  }
-});
+        /* Invalid */
+        else {
+          $('#wordInput').css({'background-color': 'red'});
+          setTimeout(function() {
+            $('#wordInput').css({'background-color': 'white'});
+          }, 500)
+        }
+
+        /* Clear word input */
+        $('#wordInput').val('');
+      });
+    }
+  });
+}
