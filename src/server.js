@@ -21,10 +21,6 @@ app.get('/', function(req, res) {
   res.sendFile(__dirname + "/" + "index.html" );
 });
 
-// app.get('/refresh', function(req, res) {
-//   res.sendFile(__dirname + "/" + "index.html" );
-// });
-
 app.get('/:word', function(req, res) {
   if (hasWord(req.params.word)) {
     res.send("1");

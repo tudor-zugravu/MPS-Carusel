@@ -44,6 +44,7 @@ function setLetters() {
 
 /* Set behaviour of word input */
 function setWordInputBehaviour() {
+     var score = 0;
     $('#wordInput').keypress(function(e) {
         /* On enter pressed */
         if (e.keyCode == 13) {
@@ -53,16 +54,20 @@ function setWordInputBehaviour() {
             $.get("/" + word, function(data) {
                 /* Valid */
                 if (data == "1") {
+                    score = score + 1;
+                    $('#Score').html("Score: " + score.toString());
+                    console.log("am appendat");
+                    //$('<div>').text(score).prepend($('<em/>').text('')).appendTo($('#Score'));
+                    
                     $('#wordInput').css({'background-color': 'green'});
                     setTimeout(function() {
                         $('#wordInput').css({'background-color': 'white'});
                     }, 500);
-                    
-                    $('<div>').text(word).prepend($('<em/>').text('')).appendTo($('#ownWordsDiv'));;
+
+                    $('<div>').text(word).prepend($('<em/>').text('')).appendTo($('#ownWordsDiv'));
                     $('#ownWordsDiv')[0].scrollTop = $('#ownWordsDiv')[0].scrollHeight;
-                    
-                    //function displayChatMessage(name, text) { $('<div/>').text(text).prepend($('<em/>').text(name+': ')).appendTo($('#messagesDiv')); //$('#messagesDiv')[0].scrollTop = $('#messagesDiv')[0].scrollHeight; };
                 }
+
                 /* Invalid */
                 else {
                     $('#wordInput').css({'background-color': 'red'});
@@ -75,21 +80,34 @@ function setWordInputBehaviour() {
                 $('#wordInput').val('');
             });
         }
+
+        /* On normal key pressed */
+        else {
+            var lastLetter = String.fromCharCode(e.keyCode).toLowerCase();
+
+            /* Valid letter */
+            var indexOfLastLetter = letters.toLowerCase().indexOf(lastLetter);
+            if (indexOfLastLetter > -1) {
+                $('#letter' + indexOfLastLetter).css({'background-color': 'red'});
+                letters = letters.substr(0, indexOfLastLetter) + '#' +
+                          letters.substr(indexOfLastLetter + 1);
+            } else {
+                return false;
+            }
+        }
     });
-    
+
     $('#startNew').click(function () {
         var dialog = document.getElementById('window');
         dialog.show();
-        document.getElementById('no').onclick = function() {  
-            dialog.close(); 
+        document.getElementById('no').onclick = function() {
+            dialog.close();
         };
-        
-        document.getElementById('yes').onclick = function() {  
+
+        document.getElementById('yes').onclick = function() {
             location.reload();
-            dialog.close(); 
+            dialog.close();
         };
-        
-        //$.get("/refresh", function() {});
     });
 }
 
