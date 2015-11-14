@@ -9,6 +9,7 @@
     <body background="img/letters.jpg" id="background">
 
     <div id="letters">
+      <p id="letter0" class="circle" style="float:left">L0</p>
       <p id="letter1" class="circle" style="float:left">L1</p>
       <p id="letter2" class="circle" style="float:left">L2</p>
       <p id="letter3" class="circle" style="float:left">L3</p>
@@ -17,8 +18,8 @@
       <p id="letter6" class="circle" style="float:left">L6</p>
       <p id="letter7" class="circle" style="float:left">L7</p>
       <p id="letter8" class="circle" style="float:left">L8</p>
-      <p id="letter9" class="circle" style="float:left">L9</p>
     </div>
+    
 
     <div style="clear:both">
       <input type='text' id='wordInput' placeholder='Word'>
@@ -29,7 +30,6 @@
     <div id="rcorners">
       <div id='ownWordsDiv'></div>
     </div>
-
     <div id="footer">
       <br><br><br>
       <img src="img/c.png" class="title_letter">
@@ -54,5 +54,12 @@
     </div>
 
     <script src='js/myscript.js'></script>
+    <button id="startNew" type="button">Start New Game</button> 
+    
+    <dialog id="window">  
+        <h3>Do you want to start a new game?</h3>  
+        <button id="yes">Yes! 
+        <button id="no">NO
+    </dialog>  
   </body>
 </html>

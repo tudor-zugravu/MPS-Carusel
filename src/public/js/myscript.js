@@ -1,43 +1,46 @@
-var dice1 = "AAUIHJ";
-var dice2 = "TRNSMB";
-var dice3 = "AARCDM";
-var dice4 = "EEIODF";
-var dice5 = "AEUSFV";
-var dice6 = "TLNPGC";
-var dice7 = "AIOEXZ";
-var dice8 = "NSTRGB";
-var dice9 = "IIUELP";
+/*** VARIABLES ***************************************************************/
 
-$( document ).ready(function() {
+var dice_input = [
+    "AAUIHJ", /* 0 */
+    "TRNSMB", /* 1 */
+    "AARCDM", /* 2 */
+    "EEIODF", /* 3 */
+    "AEUSFV", /* 4 */
+    "TLNPGC", /* 5 */
+    "AIOEXZ", /* 6 */
+    "NSTRGB", /* 7 */
+    "IIUELP"  /* 8 */
+];
+
+var letters;
+
+/*****************************************************************************/
+
+
+
+/*** DOCUMENT READY **********************************************************/
+
+$(document).ready(function() {
+    setLetters();
     setWordInputBehaviour();
-
-    var randNum = Math.floor(Math.random() * 6);
-    $('#letter1').html(dice1.charAt(randNum));
-
-    randNum = Math.floor(Math.random() * 6);
-    $('#letter2').html(dice2.charAt(randNum));
-
-    randNum = Math.floor(Math.random() * 6);
-    $('#letter3').html(dice3.charAt(randNum));
-
-    randNum = Math.floor(Math.random() * 6);
-    $('#letter4').html(dice4.charAt(randNum));
-
-    randNum = Math.floor(Math.random() * 6);
-    $('#letter5').html(dice5.charAt(randNum));
-
-    randNum = Math.floor(Math.random() * 6);
-    $('#letter6').html(dice6.charAt(randNum));
-
-    randNum = Math.floor(Math.random() * 6);
-    $('#letter7').html(dice7.charAt(randNum));
-
-    randNum = Math.floor(Math.random() * 6);
-    $('#letter8').html(dice8.charAt(randNum));
-
-    randNum = Math.floor(Math.random() * 6);
-    $('#letter9').html(dice9.charAt(randNum));
 });
+
+/*****************************************************************************/
+
+
+
+/*** FUNCTIONS ***************************************************************/
+
+/* Set letters values */
+function setLetters() {
+    letters = "";
+    for (i = 0; i < 9; i++) {
+        var letter = dice_input[i].charAt(Math.floor(Math.random() * 6));
+        $('#letter' + i).html(letter);
+        letters += letter;
+    }
+}
+
 
 /* Set behaviour of word input */
 function setWordInputBehaviour() {
@@ -68,4 +71,21 @@ function setWordInputBehaviour() {
             });
         }
     });
+    
+    $('#startNew').click(function () {
+        var dialog = document.getElementById('window');
+        dialog.show();
+        document.getElementById('no').onclick = function() {  
+            dialog.close(); 
+        };
+        
+        document.getElementById('yes').onclick = function() {  
+            location.reload();
+            dialog.close(); 
+        };
+        
+        //$.get("/refresh", function() {});
+    });
 }
+
+/*****************************************************************************/
