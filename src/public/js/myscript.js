@@ -15,6 +15,7 @@ var dice_input = [
 var letters;
 var usedIndices = [0, 0, 0, 0, 0, 0, 0, 0, 0];
 var score = 0;
+var timer = 60;
 var usedWords = [];
 
 /*****************************************************************************/
@@ -23,13 +24,11 @@ var usedWords = [];
 
 /*** DOCUMENT READY **********************************************************/
 
-
-
 $(document).ready(function() {
     setLetters();
     setWordInputBehaviour();
     setButtonBehaviour();
-    var myVar = setInterval(function(){ myTimer() }, 1000);
+    var myVar = setInterval(function(){ updateTimer() }, 1000);
 });
 
 /*****************************************************************************/
@@ -38,26 +37,22 @@ $(document).ready(function() {
 
 /*** FUNCTIONS ***************************************************************/
 
-var timer = 60;
-
-
-function myTimer() {
+function updateTimer() {
     $('#Timer').html("Timer: " + timer.toString());
 
     if (timer == 0) {
-        timer = 0;
-        var dialog = document.getElementById('window');
+        var dialog = $('#window');
         dialog.show();
         document.getElementById('no').onclick = function() {
             dialog.close();
         };
-
         document.getElementById('yes').onclick = function() {
             location.reload();
             dialog.close();
         };
+    } else {
+        timer = timer - 1;
     }
-    timer = timer - 1;
 }
 
 /* Set letters values */
@@ -73,8 +68,8 @@ function setLetters() {
 
 /* Set behaviour of word input */
 function setWordInputBehaviour() {
-
     $('#wordInput').keydown(function(e) {
+        /* Backspace */
         if (e.keyCode == 8) {
             var word = $('#wordInput').val().toLowerCase();
             if (word.length >= 1) {
