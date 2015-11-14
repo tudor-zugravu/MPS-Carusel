@@ -1,4 +1,4 @@
-$( document ).ready(function() {
+$(document).ready(function() {
   setWordInputBehaviour();
 });
 
@@ -18,7 +18,6 @@ function setWordInputBehaviour() {
             $('#wordInput').css({'background-color': 'white'});
           }, 500)
         }
-
         /* Invalid */
         else {
           $('#wordInput').css({'background-color': 'red'});
