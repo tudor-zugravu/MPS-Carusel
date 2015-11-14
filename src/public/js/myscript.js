@@ -70,6 +70,21 @@ function setWordInputBehaviour() {
                 $('#wordInput').val('');
             });
         }
+
+        /* On normal key pressed */
+        else {
+            var lastLetter = String.fromCharCode(e.keyCode).toLowerCase();
+
+            /* Valid letter */
+            var indexOfLastLetter = letters.toLowerCase().indexOf(lastLetter);
+            if (indexOfLastLetter > -1) {
+                $('#letter' + indexOfLastLetter).css({'background-color': 'red'});
+                letters = letters.substr(0, indexOfLastLetter) + '#' +
+                          letters.substr(indexOfLastLetter + 1);
+            } else {
+                return false;
+            }
+        }
     });
 }
 
