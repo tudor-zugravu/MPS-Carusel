@@ -28,8 +28,8 @@ var usedWords = [];
 $(document).ready(function() {
     setLetters();
     setWordInputBehaviour();
+    setButtonBehaviour();
     var myVar = setInterval(function(){ myTimer() }, 1000);
-
 });
 
 /*****************************************************************************/
@@ -43,7 +43,7 @@ var timer = 60;
 
 function myTimer() {
     $('#Timer').html("Timer: " + timer.toString());
-    
+
     if (timer == 0) {
         timer = 0;
         var dialog = document.getElementById('window');
@@ -73,7 +73,7 @@ function setLetters() {
 
 /* Set behaviour of word input */
 function setWordInputBehaviour() {
-     
+
     $('#wordInput').keydown(function(e) {
         if (e.keyCode == 8) {
             var word = $('#wordInput').val().toLowerCase();
