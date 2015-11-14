@@ -20,9 +20,12 @@ var letters;
 
 /*** DOCUMENT READY **********************************************************/
 
+
+
 $(document).ready(function() {
     setLetters();
     setWordInputBehaviour();
+    var myVar = setInterval(function(){ myTimer() }, 1000);
 });
 
 /*****************************************************************************/
@@ -30,6 +33,28 @@ $(document).ready(function() {
 
 
 /*** FUNCTIONS ***************************************************************/
+
+var timer = 60;
+
+
+function myTimer() {
+    $('#Timer').html("Timer: " + timer.toString());
+    
+    if (timer == 0) {
+        timer = 0;
+        var dialog = document.getElementById('window');
+        dialog.show();
+        document.getElementById('no').onclick = function() {
+            dialog.close();
+        };
+
+        document.getElementById('yes').onclick = function() {
+            location.reload();
+            dialog.close();
+        };
+    }
+    timer = timer - 1;
+}
 
 /* Set letters values */
 function setLetters() {
@@ -45,6 +70,7 @@ function setLetters() {
 /* Set behaviour of word input */
 function setWordInputBehaviour() {
      var score = 0;
+     
     $('#wordInput').keypress(function(e) {
         /* On enter pressed */
         if (e.keyCode == 13) {
@@ -55,6 +81,7 @@ function setWordInputBehaviour() {
                 /* Valid */
                 if (data == "1") {
                     score = score + 1;
+                    timer = timer + 10;
                     $('#Score').html("Score: " + score.toString());
                     console.log("am appendat");
                     //$('<div>').text(score).prepend($('<em/>').text('')).appendTo($('#Score'));
