@@ -68,4 +68,19 @@ function setWordInputBehaviour() {
             });
         }
     });
+    
+    $('#startNew').click(function () {
+        var dialog = document.getElementById('window');
+        dialog.show();
+        document.getElementById('no').onclick = function() {  
+            dialog.close(); 
+        };
+        
+        document.getElementById('yes').onclick = function() {  
+            location.reload();
+            dialog.close(); 
+        };
+        
+        //$.get("/refresh", function() {});
+    });
 }
