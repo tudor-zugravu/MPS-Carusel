@@ -15,6 +15,9 @@ var dice_input = [
 var letters;
 var usedIndices = [0, 0, 0, 0, 0, 0, 0, 0, 0];
 var score = 0;
+var timer = 60;
+var usedWords = [];
+var myVar;
 
 /*****************************************************************************/
 
@@ -26,6 +29,7 @@ $(document).ready(function() {
     setLetters();
     setWordInputBehaviour();
     setButtonBehaviour();
+    myVar = setInterval(function(){ updateTimer() }, 1000);
 });
 
 /*****************************************************************************/
@@ -33,6 +37,26 @@ $(document).ready(function() {
 
 
 /*** FUNCTIONS ***************************************************************/
+
+function updateTimer() {
+    $('#Timer').html("Timer: " + timer.toString());
+
+    if (timer == 0) {
+        var dialog = document.getElementById('window');
+        dialog.show();
+        document.getElementById('no').onclick = function() {
+            dialog.close();
+        };
+        document.getElementById('yes').onclick = function() {
+            location.reload();
+            dialog.close();
+        };
+
+        clearTimeout(myVar);
+    } else {
+        timer = timer - 1;
+    }
+}
 
 /* Set letters values */
 function setLetters() {
@@ -48,6 +72,7 @@ function setLetters() {
 /* Set behaviour of word input */
 function setWordInputBehaviour() {
     $('#wordInput').keydown(function(e) {
+        /* Backspace */
         if (e.keyCode == 8) {
             var word = $('#wordInput').val().toLowerCase();
             if (word.length >= 1) {
@@ -71,11 +96,29 @@ function setWordInputBehaviour() {
         if (e.keyCode == 13) {
             var word = $('#wordInput').val().toLowerCase();
 
+            /* Already used word */
+            if (usedWords.indexOf(word) != -1) {
+                $('#wordInput').css({'background-color': 'red'});
+                setTimeout(function() {
+                    $('#wordInput').css({'background-color': 'white'});
+                }, 500);
+
+                /* Clear */
+                for (i = 0; i < 9; i++) {
+                    usedIndices[i] = 0;
+                    $('#letter' + i).css({'background-color': 'gray'});
+                }
+                $('#wordInput').val('');
+
+                return true;
+            }
+
             /* Ask server for validation */
             $.get("/" + word, function(data) {
                 /* Valid */
                 if (data == "1") {
                     score = score + 1;
+                    timer = timer + 10;
                     $('#Score').html("Score: " + score.toString());
 
                     $('#wordInput').css({'background-color': 'green'});
@@ -85,6 +128,8 @@ function setWordInputBehaviour() {
 
                     $('<div>').text(word).prepend($('<em/>').text('')).appendTo($('#ownWordsDiv'));
                     $('#ownWordsDiv')[0].scrollTop = $('#ownWordsDiv')[0].scrollHeight;
+
+                    usedWords.push(word);
                 }
 
                 /* Invalid */
