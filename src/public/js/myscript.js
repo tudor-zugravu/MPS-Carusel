@@ -57,12 +57,11 @@ function setWordInputBehaviour() {
                     setTimeout(function() {
                         $('#wordInput').css({'background-color': 'white'});
                     }, 500);
-                    
+
                     $('<div>').text(word).prepend($('<em/>').text('')).appendTo($('#ownWordsDiv'));;
                     $('#ownWordsDiv')[0].scrollTop = $('#ownWordsDiv')[0].scrollHeight;
-                    
-                    //function displayChatMessage(name, text) { $('<div/>').text(text).prepend($('<em/>').text(name+': ')).appendTo($('#messagesDiv')); //$('#messagesDiv')[0].scrollTop = $('#messagesDiv')[0].scrollHeight; };
                 }
+
                 /* Invalid */
                 else {
                     $('#wordInput').css({'background-color': 'red'});
@@ -91,20 +90,18 @@ function setWordInputBehaviour() {
             }
         }
     });
-    
+
     $('#startNew').click(function () {
         var dialog = document.getElementById('window');
         dialog.show();
-        document.getElementById('no').onclick = function() {  
-            dialog.close(); 
+        document.getElementById('no').onclick = function() {
+            dialog.close();
         };
-        
-        document.getElementById('yes').onclick = function() {  
+
+        document.getElementById('yes').onclick = function() {
             location.reload();
-            dialog.close(); 
+            dialog.close();
         };
-        
-        //$.get("/refresh", function() {});
     });
 }
 
