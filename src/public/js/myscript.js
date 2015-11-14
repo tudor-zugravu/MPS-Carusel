@@ -44,6 +44,7 @@ function setLetters() {
 
 /* Set behaviour of word input */
 function setWordInputBehaviour() {
+     var score = 0;
     $('#wordInput').keypress(function(e) {
         /* On enter pressed */
         if (e.keyCode == 13) {
@@ -53,12 +54,17 @@ function setWordInputBehaviour() {
             $.get("/" + word, function(data) {
                 /* Valid */
                 if (data == "1") {
+                    score = score + 1;
+                    $('#Score').html("Score: " + score.toString());
+                    console.log("am appendat");
+                    //$('<div>').text(score).prepend($('<em/>').text('')).appendTo($('#Score'));
+                    
                     $('#wordInput').css({'background-color': 'green'});
                     setTimeout(function() {
                         $('#wordInput').css({'background-color': 'white'});
                     }, 500);
 
-                    $('<div>').text(word).prepend($('<em/>').text('')).appendTo($('#ownWordsDiv'));;
+                    $('<div>').text(word).prepend($('<em/>').text('')).appendTo($('#ownWordsDiv'));
                     $('#ownWordsDiv')[0].scrollTop = $('#ownWordsDiv')[0].scrollHeight;
                 }
 
