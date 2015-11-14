@@ -1,3 +1,7 @@
+$( document ).ready(function() {
+  // Update letters values
+});
+
 $('#wordInput').keypress(function(e) {
   if (e.keyCode == 13) {
     var word = $('#wordInput').val();
