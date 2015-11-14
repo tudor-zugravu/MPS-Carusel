@@ -20,6 +20,7 @@ $( document ).ready(function() {
     $('#letter7').html(dice7.charAt(randNum));
     $('#letter8').html(dice8.charAt(randNum));
     $('#letter9').html(dice9.charAt(randNum));
+}
 
 /* Set behaviour of word input */
 function setWordInputBehaviour() {
