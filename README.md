@@ -25,3 +25,7 @@ In acest repo se afla rezolvarea [proiectului 1](http://elf.cs.pub.ro/mps/wiki/p
     * Vezi Changelog
   * Ce veți folosi pentru comunicare/colaborare?
     * Intrucat suntem colegi de grupa si ne vedem foarte des la facultate, probabil cel mai folosit canal de comunicare va fi prin viu grai. Alternativa online este Google Hangouts.
+
+# Resurse
+  * [Baza de date pentru cuvintele in limba romana](https://dexonline.ro/scrabble)
+  * [Heroku Deploy Node.js](https://devcenter.heroku.com/articles/deploying-nodejs)
