@@ -23,9 +23,9 @@ app.get('/', function(req, res) {
 
 app.get('/:word', function(req, res) {
   if (hasWord(req.params.word)) {
-    res.send('valid');
+    res.send("1");
   } else {
-    res.send('invalid');
+    res.send("0");
   }
 });
 

@@ -7,7 +7,7 @@ $('#wordInput').keypress(function(e) {
     var word = $('#wordInput').val();
 
     $.get("/" + word, function(data) {
-      if (data == 'valid') {
+      if (data == "1") {
         $('#wordInput').css({'background-color': 'green'});
         setTimeout(function() {
           $('#wordInput').css({'background-color': 'white'});
