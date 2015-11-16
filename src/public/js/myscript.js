@@ -26,6 +26,7 @@ var myVar;
 /*** DOCUMENT READY **********************************************************/
 
 $(document).ready(function() {
+    $('#wordInput').focus();
     setLetters();
     setWordInputBehaviour();
     setButtonBehaviour();
