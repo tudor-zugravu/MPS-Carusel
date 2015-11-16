@@ -27,9 +27,11 @@ var myVar;
 
 $(document).ready(function() {
     $('#wordInput').focus();
+
     setLetters();
     setWordInputBehaviour();
     setButtonBehaviour();
+
     myVar = setInterval(function(){ updateTimer() }, 1000);
 });
 
@@ -43,11 +45,10 @@ function updateTimer() {
     $('#Timer').html("Timer: " + timer.toString());
 
     if (timer == 0) {
+        document.getElementById('no').style.visibility = 'hidden';
+
         var dialog = document.getElementById('window');
-        dialog.show();
-        document.getElementById('no').onclick = function() {
-            dialog.close();
-        };
+        dialog.showModal();
         document.getElementById('yes').onclick = function() {
             location.reload();
             dialog.close();
@@ -173,7 +174,7 @@ function setWordInputBehaviour() {
 function setButtonBehaviour() {
     $('#startNew').click(function () {
         var dialog = document.getElementById('window');
-        dialog.show();
+        dialog.showModal();
         document.getElementById('no').onclick = function() {
             dialog.close();
         };
