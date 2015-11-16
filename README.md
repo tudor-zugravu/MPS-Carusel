@@ -13,7 +13,7 @@ In acest repo se afla rezolvarea [proiectului 1](http://elf.cs.pub.ro/mps/wiki/p
 # FAQ
   * Ce soluții software vă propuneți să utilizați?
     * Frontend: HTML/CSS/JS
-    * Backend: Node.js/Firebase
+    * Backend: Node.js/Express
     * PaaS: Heroku
   * Ce arhitectură de proiect urmăriți (în linii mari)?
     * Pentru a eficientiza lucrul in echipa, ne propunem sa folosim o arhitectura Model View Controller.
