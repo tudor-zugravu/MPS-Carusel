@@ -4,7 +4,7 @@ var fs = require("fs");
 
 app.use(express.static('public'));
 
-var FILENAME = __dirname + "/public/res/loc-reduse-5.0.txt";
+var FILENAME = __dirname + "/public/res/words.txt";
 var wordArray = (fs.readFileSync(FILENAME, "utf8")).split('\n');
 
 function hasWord(word) {

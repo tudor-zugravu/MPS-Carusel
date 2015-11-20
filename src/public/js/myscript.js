@@ -1,16 +1,24 @@
 /*** VARIABLES ***************************************************************/
 
 var dice_input = [
-    "AAUIHJ", /* 0 */
-    "TRNSMB", /* 1 */
-    "AARCDM", /* 2 */
-    "EEIODF", /* 3 */
-    "AEUSFV", /* 4 */
-    "TLNPGC", /* 5 */
-    "AIOEXZ", /* 6 */
-    "NSTRGB", /* 7 */
-    "IIUELP"  /* 8 */
+    "aauihj", /* 0 */
+    "trnsmb", /* 1 */
+    "aarcdm", /* 2 */
+    "eeiodf", /* 3 */
+    "arusfv", /* 4 */
+    "tlnpgc", /* 5 */
+    "aioexz", /* 6 */
+    "nstrgb", /* 7 */
+    "iiuelp"  /* 8 */
 ];
+
+var diacritice = {
+    'ă' : 'a',
+    'â' : 'a',
+    'î' : 'i',
+    'ț' : 't',
+    'ș' : 's'
+};
 
 var letters;
 var usedIndices = [0, 0, 0, 0, 0, 0, 0, 0, 0];
@@ -98,6 +106,11 @@ function setWordInputBehaviour() {
         if (e.keyCode == 13) {
             var word = $('#wordInput').val().toLowerCase();
 
+            /* Too short / long word */
+            if (word.length < 4 || word.length > 9) {
+                return true;
+            }
+
             /* Already used word */
             if (usedWords.indexOf(word) != -1) {
                 $('#wordInput').css({'background-color': 'red'});
@@ -154,6 +167,9 @@ function setWordInputBehaviour() {
         /* On normal key pressed */
         else {
             var lastLetter = String.fromCharCode(e.keyCode).toLowerCase();
+
+            /* Update letter if diacritice */
+            lastLetter = lastLetter in diacritice ? diacritice[lastLetter] : lastLetter;
 
             /* Valid letter */
             var indexOfLastLetter = letters.toLowerCase().indexOf(lastLetter);
