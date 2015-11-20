@@ -41,6 +41,13 @@ $(document).ready(function() {
     setButtonBehaviour();
 
     myVar = setInterval(function(){ updateTimer() }, 1000);
+
+    new PNotify({
+      title: 'TRY AGAIN',
+      text: 'The word is NOT correct! Try Again',
+      type: 'error',
+      animate_speed: 100
+  });
 });
 
 /*****************************************************************************/
@@ -88,6 +95,8 @@ function setWordInputBehaviour() {
             if (word.length >= 1) {
                 var deletedLetter = word.slice(-1);
 
+                deletedLetter = deletedLetter in diacritice ? diacritice[deletedLetter] : deletedLetter;
+
                 var indexOfDeletedLetter = letters.toLowerCase().indexOf(deletedLetter);
                 while (usedIndices[indexOfDeletedLetter] == 0) {
                     indexOfDeletedLetter = letters.toLowerCase().indexOf(deletedLetter,
@@ -108,6 +117,7 @@ function setWordInputBehaviour() {
 
             /* Too short / long word */
             if (word.length < 4 || word.length > 9) {
+                $('#wordInput').val('');
                 return true;
             }
 
