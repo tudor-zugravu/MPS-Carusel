@@ -1,44 +1,38 @@
+/*** REQUIRES ****************************************************************/
+
 var express = require('express');
-var app = express();
 var fs = require("fs");
 
+/*****************************************************************************/
+
+
+
+/*** VARIABLES ***************************************************************/
+
+var RomanianWords = __dirname + "/public/res/words.txt";
+var wordArray = (fs.readFileSync(RomanianWords, "utf8")).split('\n');
+
+var highscores = [];    /* Array that contains maxHighscores value with
+                         * name and score. */
+var maxHighscores = 10; /* Maximum number of highscores */
+
+/*****************************************************************************/
+
+
+
+/*** SERVER BEHAVIOUR ********************************************************/
+
+var app = express();
 app.use(express.static('public'));
 
-var FILENAME = __dirname + "/public/res/words.txt";
-var wordArray = (fs.readFileSync(FILENAME, "utf8")).split('\n');
-
-/* Cine imparte parte isi face */
-var highscores = [
-  {
-    name: "matei",
-    score: 100,
-  },
-  {
-    name: "patulea",
-    score: 90,
-  },
-  {
-    name: "florea",
-    score: 80,
-  }
-];
-var maxHighscores = 10;
-
-function hasWord(word) {
-  var length = wordArray.length;
-  for(var i = 0; i < length; i++) {
-    if(wordArray[i].trim() == word) {
-      return true;
-    }
-  }
-  return false;
-}
-
+/* Main page */
 app.get('/', function(req, res) {
   res.sendFile(__dirname + "/" + "index.html" );
 });
 
+/* GET */
 app.get('/:word', function(req, res) {
+  /* Get highscores */
   if (req.params.word == 'highscores') {
     highscores.splice(maxHighscores);
     var ret = "";
@@ -49,6 +43,7 @@ app.get('/:word', function(req, res) {
     res.send(ret);
   }
 
+  /* Submit highscore. The word has this form: submit:name:score */
   else if (req.params.word.indexOf('submit:') == 0) {
     var firstColon = req.params.word.indexOf(':');
     var secondColon = req.params.word.indexOf(':', firstColon + 1);
@@ -67,10 +62,12 @@ app.get('/:word', function(req, res) {
       highscores.push({name: name, score: score});
     }
     highscores.splice(maxHighscores);
+
     res.send("1");
   }
 
-  else if (hasWord(req.params.word)) {
+  /* Check word */
+  else if (isAValidRomanianWord(req.params.word)) {
     res.send("1");
   } else {
     res.send("0");
@@ -81,5 +78,24 @@ var server = app.listen(80, function() {
   var host = server.address().address;
   var port = server.address().port;
 
-  console.log("MPS-Carusel up and running at http://%s:%s", host, port);
+  console.log("Server is up and running at http://%s:%s", host, port);
 })
+
+/*****************************************************************************/
+
+
+
+/*** FUNCTIONS ***************************************************************/
+
+/* Test if word is a valid Romanian word. */
+function isAValidRomanianWord(word) {
+  var length = wordArray.length;
+  for (var i = 0; i < length; i++) {
+    if (wordArray[i].trim().toLowerCase() == word) {
+      return true;
+    }
+  }
+  return false;
+}
+
+/*****************************************************************************/
