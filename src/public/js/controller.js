@@ -1,14 +1,15 @@
 /*** VARIABLES ***************************************************************/
 
+/* Frequency rank law for letters in Romanian */
 var letter_freq_rank = {
-    "A" : 14.92,
+    "A" : 14.92, /* A + Ă + Â*/
     "E" : 11.47,
-    "I" : 11.36,
-    "T" : 7.04,
+    "I" : 11.36, /* I + Î */
+    "T" : 7.04,  /* T + Ț */
     "R" : 6.82,
     "N" : 6.47,
     "U" : 6.20,
-    "S" : 5.95,
+    "S" : 5.95,  /* S + Ș */
     "C" : 5.28,
     "L" : 4.48,
     "O" : 4.07,
@@ -79,7 +80,8 @@ $(document).ready(function() {
         var scores = data.split('\n');
 
         for (var i = 0; i < scores.length; i++) {
-            $('<div>').text(scores[i]).prepend($('<em/>').text('')).appendTo($('#highscore'));
+            $('<div>').text(scores[i]).prepend($('<em/>').text('')).
+                appendTo($('#highscore'));
             $('#highscore')[0].scrollTop = $('#highscore')[0].scrollHeight;
         }
     });
@@ -176,8 +178,10 @@ function setLetters() {
     var letter = 'Z';
     for (var i = 0; i < 9; i++) {
         var rand = Math.floor(Math.random() * 100);
+        console.log(rand);
 
         for (var j in letter_freq_rank) {
+            console.log(letter_freq_rank[j])
             if (rand < letter_freq_rank[j]) {
                 letter = j;
                 break;
@@ -212,7 +216,8 @@ function setWordInputBehaviour() {
                         indexOfDeletedLetter + 1);
                 }
                 if (indexOfDeletedLetter > -1) {
-                    $('#letter' + indexOfDeletedLetter).css({'background-color': 'white'});
+                    $('#letter' + indexOfDeletedLetter).css(
+                        {'background-color': 'white'});
                     usedIndices[indexOfDeletedLetter] = 0;
                 }
             }
@@ -287,8 +292,10 @@ function setWordInputBehaviour() {
                         $('#wordInput').css({'background-color': 'white'});
                     }, 500);
 
-                    $('<div>').text(word).prepend($('<em/>').text('')).appendTo($('#ownWordsDiv'));
-                    $('#ownWordsDiv')[0].scrollTop = $('#ownWordsDiv')[0].scrollHeight;
+                    $('<div>').text(word).prepend($('<em/>').text(''))
+                        .appendTo($('#ownWordsDiv'));
+                    $('#ownWordsDiv')[0].scrollTop = $('#ownWordsDiv')[0]
+                        .scrollHeight;
 
                     usedWords.push(word);
                 }
