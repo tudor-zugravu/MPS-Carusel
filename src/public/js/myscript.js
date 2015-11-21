@@ -1,23 +1,23 @@
 /*** VARIABLES ***************************************************************/
 
 var dice_input = [
-    "aauihj", /* 0 */
-    "trnsmb", /* 1 */
-    "aarcdm", /* 2 */
-    "eeiodf", /* 3 */
-    "arusfv", /* 4 */
-    "tlnpgc", /* 5 */
-    "aioexz", /* 6 */
-    "nstrgb", /* 7 */
-    "iiuelp"  /* 8 */
+    "AAUIHJ", /* 0 */
+    "TRNSMB", /* 1 */
+    "AARCDM", /* 2 */
+    "EEIODF", /* 3 */
+    "ARUSFV", /* 4 */
+    "TLNPGC", /* 5 */
+    "AIOEXZ", /* 6 */
+    "NSTRGB", /* 7 */
+    "IIUELP"  /* 8 */
 ];
 
 var diacritice = {
-    'ă' : 'a',
-    'â' : 'a',
-    'î' : 'i',
-    'ț' : 't',
-    'ș' : 's'
+    'Ă' : 'A',
+    'Â' : 'A',
+    'Î' : 'I',
+    'Ț' : 'T',
+    'Ș' : 'S'
 };
 
 var letters;
@@ -89,19 +89,18 @@ function setWordInputBehaviour() {
     $('#wordInput').keydown(function(e) {
         /* Backspace */
         if (e.keyCode == 8) {
-            var word = $('#wordInput').val().toLowerCase();
+            var word = $('#wordInput').val().toUpperCase();
             if (word.length >= 1) {
                 var deletedLetter = word.slice(-1);
 
                 deletedLetter = deletedLetter in diacritice ? diacritice[deletedLetter] : deletedLetter;
 
-                var indexOfDeletedLetter = letters.toLowerCase().indexOf(deletedLetter);
+                var indexOfDeletedLetter = letters.indexOf(deletedLetter);
                 while (usedIndices[indexOfDeletedLetter] == 0) {
-                    indexOfDeletedLetter = letters.toLowerCase().indexOf(deletedLetter,
-                                                                         indexOfDeletedLetter + 1);
+                    indexOfDeletedLetter = letters.indexOf(deletedLetter, indexOfDeletedLetter + 1);
                 }
                 if (indexOfDeletedLetter > -1) {
-                    $('#letter' + indexOfDeletedLetter).css({'background-color': 'gray'});
+                    $('#letter' + indexOfDeletedLetter).css({'background-color': 'white'});
                     usedIndices[indexOfDeletedLetter] = 0;
                 }
             }
@@ -111,14 +110,14 @@ function setWordInputBehaviour() {
     $('#wordInput').keypress(function(e) {
         /* On enter pressed */
         if (e.keyCode == 13) {
-            var word = $('#wordInput').val().toLowerCase();
+            var word = $('#wordInput').val().toUpperCase();
 
             /* Too short / long word */
             if (word.length < 4 || word.length > 9) {
                 /* Clear */
                 for (i = 0; i < 9; i++) {
                     usedIndices[i] = 0;
-                    $('#letter' + i).css({'background-color': 'gray'});
+                    $('#letter' + i).css({'background-color': 'white'});
                 }
                 $('#wordInput').val('');
 
@@ -135,7 +134,7 @@ function setWordInputBehaviour() {
                 /* Clear */
                 for (i = 0; i < 9; i++) {
                     usedIndices[i] = 0;
-                    $('#letter' + i).css({'background-color': 'gray'});
+                    $('#letter' + i).css({'background-color': 'white'});
                 }
                 $('#wordInput').val('');
 
@@ -143,7 +142,7 @@ function setWordInputBehaviour() {
             }
 
             /* Ask server for validation */
-            $.get("/" + word, function(data) {
+            $.get("/" + word.toLowerCase(), function(data) {
                 /* Valid */
                 if (data == "1") {
                     score = score + 1;
@@ -172,7 +171,7 @@ function setWordInputBehaviour() {
                 /* Clear */
                 for (i = 0; i < 9; i++) {
                     usedIndices[i] = 0;
-                    $('#letter' + i).css({'background-color': 'gray'});
+                    $('#letter' + i).css({'background-color': 'white'});
                 }
                 $('#wordInput').val('');
             });
@@ -180,15 +179,15 @@ function setWordInputBehaviour() {
 
         /* On normal key pressed */
         else {
-            var lastLetter = String.fromCharCode(e.keyCode).toLowerCase();
+            var lastLetter = String.fromCharCode(e.keyCode).toUpperCase();
 
             /* Update letter if diacritice */
             lastLetter = lastLetter in diacritice ? diacritice[lastLetter] : lastLetter;
 
             /* Valid letter */
-            var indexOfLastLetter = letters.toLowerCase().indexOf(lastLetter);
+            var indexOfLastLetter = letters.indexOf(lastLetter);
             while (usedIndices[indexOfLastLetter] == 1) {
-                indexOfLastLetter = letters.toLowerCase().indexOf(lastLetter, indexOfLastLetter + 1);
+                indexOfLastLetter = letters.indexOf(lastLetter, indexOfLastLetter + 1);
             }
             if (indexOfLastLetter > -1) {
                 $('#letter' + indexOfLastLetter).css({'background-color': 'red'});
