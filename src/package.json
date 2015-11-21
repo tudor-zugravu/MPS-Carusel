@@ -4,17 +4,12 @@
   "description": "Proiect 1 MPS",
   "main": "server.js",
   "dependencies": {
-    "angular": "^1.4.7",
-    "body-parser": "^1.14.1",
-    "cookie-parser": "^1.4.0",
     "express": "^4.13.3",
-    "firebase": "^2.3.1",
-    "multer": "^1.1.0"
   },
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "sudo node server.js"
   },
   "keywords": [
     "mps"
@@ -24,5 +19,4 @@
   "engines": {
     "node": "0.10.28"
   },
-  "scripts": { "start" : "node server.js" }
 }
