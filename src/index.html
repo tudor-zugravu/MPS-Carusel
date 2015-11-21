@@ -9,54 +9,36 @@
   <body>
     <body background="img/letters.jpg" id="background">
 
-    <div id="letters">
-      <p id="letter0" class="circle" style="float:left">L0</p>
-      <p id="letter1" class="circle" style="float:left">L1</p>
-      <p id="letter2" class="circle" style="float:left">L2</p>
-      <p id="letter3" class="circle" style="float:left">L3</p>
-      <p id="letter4" class="circle" style="float:left">L4</p>
-      <p id="letter5" class="circle" style="float:left">L5</p>
-      <p id="letter6" class="circle" style="float:left">L6</p>
-      <p id="letter7" class="circle" style="float:left">L7</p>
-      <p id="letter8" class="circle" style="float:left">L8</p>
+    <div id="leftdiv">
+      <div id="highscore">HALL OF FAME</div>
     </div>
-
-    <b>
-      <div style="clear:both">
-        <input type='text' id='wordInput' placeholder='Word' style="font-size: 30px">
-        <p id="Score"><font size="4" color="#000">Score: 0</font></p>
-        <p id="Timer"><font size="4" color="#000">Timer: 60</font></p>
+    <div id="game">
+      <div id="letters">
+        <p id="letter0" class="circle" style="float:left">L0</p>
+        <p id="letter1" class="circle" style="float:left">L1</p>
+        <p id="letter2" class="circle" style="float:left">L2</p>
+        <p id="letter3" class="circle" style="float:left">L3</p>
+        <p id="letter4" class="circle" style="float:left">L4</p>
+        <p id="letter5" class="circle" style="float:left">L5</p>
+        <p id="letter6" class="circle" style="float:left">L6</p>
+        <p id="letter7" class="circle" style="float:left">L7</p>
+        <p id="letter8" class="circle" style="float:left">L8</p>
       </div>
 
-      <div id="rcorners">
-        <div id='ownWordsDiv'></div>
-      </div>
-    </b>
+      <b>
+        <div style="clear:both">
+          <input type='text' id='wordInput' placeholder='Word'>
+          <p id="Score" style="font-size: 2em; color: #000; height: 3%; margin-right: 42%">Score: 0</font></p>
+          <p id="Timer" style="font-size: 2em; color: #000; height: 3%; margin-right: 42%">Timer: 60</font></p>
+        </div>
 
-    <div id="footer">
-      <br><br><br>
-      <img src="img/c.png" class="title_letter">
-      <img src="img/a.png" class="title_letter">
-      <img src="img/r.png" class="title_letter">
-      <img src="img/u.png" class="title_letter">
-      <img src="img/s.png" class="title_letter">
-      <img src="img/e.png" class="title_letter">
-      <img src="img/l.png" class="title_letter">
-      <img src="img/u.png" class="title_letter">
-      <img src="img/l.png" class="title_letter">
-      <img src="img/empty.png" class="title_letter">
-      <img src="img/l.png" class="title_letter">
-      <img src="img/i.png" class="title_letter">
-      <img src="img/t.png" class="title_letter">
-      <img src="img/e.png" class="title_letter">
-      <img src="img/r.png" class="title_letter">
-      <img src="img/e.png" class="title_letter">
-      <img src="img/l.png" class="title_letter">
-      <img src="img/o.png" class="title_letter">
-      <img src="img/r.png" class="title_letter">
+        <div id="rcorners">
+          <div id='ownWordsDiv'></div>
+        </div>
+      </b>
+
+      <button id="startNew" ><b>Start New Game</b></button>
     </div>
-
-    <button id="startNew" ><b>Start New Game</b></button>
 
     <dialog id="window">
       <h3>Do you want to start a new game?</h3>

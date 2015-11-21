@@ -1,32 +1,43 @@
 .circle {
-	width:9%;
-	height:50%;
+	width:10%;
 	font-size:1.5em;
 	color:#000;
 	line-height:200%;
 	text-align:center;
 	background: white;
-	border: 5px solid #000;
 	border-radius: 20%;
 	margin-right: 1%;
 }
 
-#footer {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
+#startNew {
+    background-color: #ffcc66;
+	border-radius: 50%;
+	padding: 1%;
+	color: #000;
+	font-size: 1.8em;
+	margin-top: 2%;
+	margin-right: 41%;
 }
 
-#startNew {
-    background-color: #993300;
-	-moz-border-radius: 15px;
-	-webkit-border-radius: 15px;
-	border: 5px solid #cc3300;
-	padding: 5px;
+#game {
+	width:70%;
+	float: left;
+	height: 100%;
+	vertical-align: center;
+	text-align: center;
+	margin-left: auto;
+	margin-right: 0%;
+}
+
+#wordInput {
+
+  font-size: 30px;
+  margin-right: 41%;
 }
 
 body {
 	width:100%;
+	height: 100%;
 	vertical-align: center;
 	text-align: center;
 	margin-left:auto;
@@ -38,9 +49,8 @@ div {
 }
 
 #letters {
-	width:40%;
-	margin-left:auto;
-	margin-right:auto;
+	margin-left:0%;
+	margin-right:42%;
 }
 
 #background {
@@ -57,25 +67,54 @@ div {
 	height: 7%;
 }
 
+#leftdiv {
+
+	width:30%;
+	float: left;
+	height: 100%;
+	vertical-align: center;
+	text-align: center;
+	margin-left: 0;
+	margin-right:auto;
+}
+
+#highscore {
+
+	margin-left: 10%;
+	margin-top: 10%;
+	font-size: 3em;
+	color: #fff;
+    background-color: #000;
+    background-position: center;
+    background-repeat: repeat;
+    width: 60%;
+    height: 80%;
+	line-height:1em;
+	overflow: auto;
+	opacity: 0.6;
+}
+
 #rcorners {
 	margin-left: auto;
-	margin-right: auto;
-    border-radius: 20px;
+	margin-right: 55.5%;
+	font-size: 3em;
+    border-radius: 10%;
     background: url(../img/wordsBc);
     background-position: center;
     background-repeat: repeat;
-    padding: 10px;
-    width: 200px;
-    height: 300px;
+    width: 30%;
+    height: 40%;
 	line-height:1em;
 	overflow: auto;
 	opacity: 0.8;
 }
 
 dialog {
-	border: 5px solid #3399ff;
-    background: #3399ff;
+	border: 5px solid #ffff99;
+    background: #ffff99;
     padding:0%;
+    border-radius: 50%;
+    font-size: 2em;
     position:absolute;
     width:40%;
     top: 100%;
