@@ -41,3 +41,4 @@ In acest repo se afla rezolvarea [proiectului 1](http://elf.cs.pub.ro/mps/wiki/p
   * [Baza de date pentru cuvintele in limba romana](https://dexonline.ro/scrabble)
   * [Heroku Deploy Node.js](https://devcenter.heroku.com/articles/deploying-nodejs)
   * [Express Framework](http://www.tutorialspoint.com/nodejs/nodejs_express_framework.htm)
+  * [TWO FREQUENCY-RANK LAWS FOR LETTERS IN PRINTED ROMANIAN](http://www.sepln.org/revistaSEPLN/revista/26/vlad.pdf)
