@@ -19,3 +19,11 @@
 
 * 15/11/2015
   * echipa de dev a fost contactata de technical writeri pentru a finisa documentatia
+
+* 20/11/2015
+  * baza de date cu diacritice
+
+* 21/11/2015
+  * notificari
+  * diacritice
+  * hall of fame
