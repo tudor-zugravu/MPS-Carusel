@@ -7,14 +7,19 @@ app.use(express.static('public'));
 var FILENAME = __dirname + "/public/res/words.txt";
 var wordArray = (fs.readFileSync(FILENAME, "utf8")).split('\n');
 
+/* Cine imparte parte isi face */
 var highscores = [
   {
-    name: "a",
-    score: 3,
+    name: "matei",
+    score: 100,
   },
   {
-    name: "c",
-    score: 1,
+    name: "patulea",
+    score: 90,
+  },
+  {
+    name: "florea",
+    score: 80,
   }
 ];
 var maxHighscores = 10;

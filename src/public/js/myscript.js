@@ -44,14 +44,13 @@ $(document).ready(function() {
     timerInterval = setInterval(function(){ updateTimer() }, 1000);
 
     $.get("/highscores", function(data) {
-        new PNotify({
-            title: 'highscores',
-            text: data,
-            type: 'success',
-            animate_speed: 'fast',
-            hide: true,
-            delay: notificationDelay
-        });
+        var scores = data.split('\n');
+
+        for (var i = 0; i < scores.length; i++) {
+            $('<div>').text(scores[i]).prepend($('<em/>').text('')).appendTo($('#highscore'));
+            $('#highscore')[0].scrollTop = $('#highscore')[0].scrollHeight;
+        }
+
     });
 });
 
