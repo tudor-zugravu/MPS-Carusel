@@ -42,6 +42,17 @@ $(document).ready(function() {
     setButtonBehaviour();
 
     timerInterval = setInterval(function(){ updateTimer() }, 1000);
+
+    $.get("/highscores", function(data) {
+        new PNotify({
+            title: 'highscores',
+            text: data,
+            type: 'success',
+            animate_speed: 'fast',
+            hide: true,
+            delay: notificationDelay
+        });
+    });
 });
 
 /*****************************************************************************/
@@ -54,16 +65,53 @@ function updateTimer() {
     $('#Timer').html("Timer: " + timer.toString());
 
     if (timer == 0) {
-        document.getElementById('no').style.visibility = 'hidden';
+        clearTimeout(timerInterval);
 
-        var dialog = document.getElementById('window');
+        var dialog = document.getElementById('submitScore');
         dialog.showModal();
-        document.getElementById('yes').onclick = function() {
+        $('#name').focus();
+        document.getElementById('submit').onclick = function() {
+            var name = $('#name').val();
+
+            if (name.length < 3) {
+                new PNotify({
+                    title: 'Oh no',
+                    text: "Your name must have at least 3 characters",
+                    type: 'error',
+                    animate_speed: 'fast',
+                    hide: true,
+                    delay: notificationDelay
+                });
+            } else {
+                $.get("/submit:" + name + ":" + '2', function(data) {});
+
+                new PNotify({
+                    title: 'Congrats',
+                    text: "Your score has been submitted",
+                    type: 'success',
+                    animate_speed: 'fast',
+                    hide: true,
+                    delay: notificationDelay
+                });
+
+                setTimeout(function() {
+                    location.reload();
+                    dialog.close();
+                }, 1000);
+            }
+        };
+
+        document.getElementById('nosubmit').onclick = function() {
             location.reload();
             dialog.close();
         };
 
-        clearTimeout(timerInterval);
+        $('#name').keypress(function(e) {
+            /* On enter pressed */
+            if (e.keyCode == 13) {
+                $("#submit").click();
+            }
+        });
     } else {
         timer = timer - 1;
     }

@@ -7,6 +7,18 @@ app.use(express.static('public'));
 var FILENAME = __dirname + "/public/res/words.txt";
 var wordArray = (fs.readFileSync(FILENAME, "utf8")).split('\n');
 
+var highscores = [
+  {
+    name: "a",
+    score: 3,
+  },
+  {
+    name: "c",
+    score: 1,
+  }
+];
+var maxHighscores = 10;
+
 function hasWord(word) {
   var length = wordArray.length;
   for(var i = 0; i < length; i++) {
@@ -22,7 +34,33 @@ app.get('/', function(req, res) {
 });
 
 app.get('/:word', function(req, res) {
-  if (hasWord(req.params.word)) {
+  if (req.params.word == 'highscores') {
+    highscores.splice(maxHighscores);
+    var ret = "";
+    for (var i = 0; i < highscores.length; i++) {
+      ret += highscores[i].name + " " + highscores[i].score + "\n";
+    }
+
+    res.send(ret);
+  }
+
+  else if (req.params.word.indexOf('submit:') == 0) {
+    var firstColon = req.params.word.indexOf(':');
+    var secondColon = req.params.word.indexOf(':', firstColon + 1);
+    var name = req.params.word.substring(firstColon + 1, secondColon);
+    var score = parseInt(req.params.word.substring(secondColon + 1), 10);
+
+    for (var i = 0; i < highscores.length; i++) {
+      if (highscores[i].score < score) {
+        highscores.splice(i, 0, {name: name, score: score});
+        break;
+      }
+    }
+    highscores.splice(maxHighscores);
+    res.send("1");
+  }
+
+  else if (hasWord(req.params.word)) {
     res.send("1");
   } else {
     res.send("0");
