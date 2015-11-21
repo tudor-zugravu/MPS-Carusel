@@ -3,6 +3,10 @@
 In acest repo se afla rezolvarea [proiectului 1](http://elf.cs.pub.ro/mps/wiki/proiect/proiect-1) pentru cursul [Managementul Proiectelor Software](http://elf.cs.pub.ro/mps/wiki/). In linii mari, aplicatia *Caruselul Literelor* presupune amestecarea a 9 zaruri pe a caror fete se afla litere iar un jucator trebuie sa formeze cuvinte folosind cele 9 litere rezultate.
 
 
+# Site
+Check it online at [http://caruselul-literelor.herokuapp.com/](http://caruselul-literelor.herokuapp.com/).
+
+
 # Membrii echipei
   * Razvan MATEI 341C5 [matei.rm94@gmail.com] - Dev
   * Alex FLOREA 341C5 [alex.florea0106@gmail.com] - Dev
