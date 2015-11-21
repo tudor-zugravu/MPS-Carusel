@@ -1,23 +1,23 @@
 /*** VARIABLES ***************************************************************/
 
 var dice_input = [
-    "aauihj", /* 0 */
-    "trnsmb", /* 1 */
-    "aarcdm", /* 2 */
-    "eeiodf", /* 3 */
-    "arusfv", /* 4 */
-    "tlnpgc", /* 5 */
-    "aioexz", /* 6 */
-    "nstrgb", /* 7 */
-    "iiuelp"  /* 8 */
+    "AAUIHJ", /* 0 */
+    "TRNSMB", /* 1 */
+    "AARCDM", /* 2 */
+    "EEIODF", /* 3 */
+    "ARUSFV", /* 4 */
+    "TLNPGC", /* 5 */
+    "AIOEXZ", /* 6 */
+    "NSTRGB", /* 7 */
+    "IIUELP"  /* 8 */
 ];
 
 var diacritice = {
-    'ă' : 'a',
-    'â' : 'a',
-    'î' : 'i',
-    'ț' : 't',
-    'ș' : 's'
+    'Ă' : 'A',
+    'Â' : 'A',
+    'Î' : 'I',
+    'Ț' : 'T',
+    'Ș' : 'S'
 };
 
 var letters;
@@ -25,7 +25,8 @@ var usedIndices = [0, 0, 0, 0, 0, 0, 0, 0, 0];
 var score = 0;
 var timer = 60;
 var usedWords = [];
-var myVar;
+var timerInterval;
+var notificationDelay = 2000;
 
 /*****************************************************************************/
 
@@ -40,12 +41,18 @@ $(document).ready(function() {
     setWordInputBehaviour();
     setButtonBehaviour();
 
-    myVar = setInterval(function(){ updateTimer() }, 1000);
+    timerInterval = setInterval(function(){ updateTimer() }, 1000);
 
-    PNotify.prototype.options.delay ? (function() {
-        PNotify.prototype.options.delay -= 500;
-        update_timer_display();
-    }()) : (alert('Timer is already at zero.'))
+    $.get("/highscores", function(data) {
+        new PNotify({
+            title: 'highscores',
+            text: data,
+            type: 'success',
+            animate_speed: 'fast',
+            hide: true,
+            delay: notificationDelay
+        });
+    });
 });
 
 /*****************************************************************************/
@@ -58,16 +65,53 @@ function updateTimer() {
     $('#Timer').html("Timer: " + timer.toString());
 
     if (timer == 0) {
-        document.getElementById('no').style.visibility = 'hidden';
+        clearTimeout(timerInterval);
 
-        var dialog = document.getElementById('window');
+        var dialog = document.getElementById('submitScore');
         dialog.showModal();
-        document.getElementById('yes').onclick = function() {
+        $('#name').focus();
+        document.getElementById('submit').onclick = function() {
+            var name = $('#name').val();
+
+            if (name.length < 3) {
+                new PNotify({
+                    title: 'Oh no',
+                    text: "Your name must have at least 3 characters",
+                    type: 'error',
+                    animate_speed: 'fast',
+                    hide: true,
+                    delay: notificationDelay
+                });
+            } else {
+                $.get("/submit:" + name + ":" + '2', function(data) {});
+
+                new PNotify({
+                    title: 'Congrats',
+                    text: "Your score has been submitted",
+                    type: 'success',
+                    animate_speed: 'fast',
+                    hide: true,
+                    delay: notificationDelay
+                });
+
+                setTimeout(function() {
+                    location.reload();
+                    dialog.close();
+                }, 1000);
+            }
+        };
+
+        document.getElementById('nosubmit').onclick = function() {
             location.reload();
             dialog.close();
         };
 
-        clearTimeout(myVar);
+        $('#name').keypress(function(e) {
+            /* On enter pressed */
+            if (e.keyCode == 13) {
+                $("#submit").click();
+            }
+        });
     } else {
         timer = timer - 1;
     }
@@ -89,19 +133,18 @@ function setWordInputBehaviour() {
     $('#wordInput').keydown(function(e) {
         /* Backspace */
         if (e.keyCode == 8) {
-            var word = $('#wordInput').val().toLowerCase();
+            var word = $('#wordInput').val().toUpperCase();
             if (word.length >= 1) {
                 var deletedLetter = word.slice(-1);
 
                 deletedLetter = deletedLetter in diacritice ? diacritice[deletedLetter] : deletedLetter;
 
-                var indexOfDeletedLetter = letters.toLowerCase().indexOf(deletedLetter);
+                var indexOfDeletedLetter = letters.indexOf(deletedLetter);
                 while (usedIndices[indexOfDeletedLetter] == 0) {
-                    indexOfDeletedLetter = letters.toLowerCase().indexOf(deletedLetter,
-                                                                         indexOfDeletedLetter + 1);
+                    indexOfDeletedLetter = letters.indexOf(deletedLetter, indexOfDeletedLetter + 1);
                 }
                 if (indexOfDeletedLetter > -1) {
-                    $('#letter' + indexOfDeletedLetter).css({'background-color': 'gray'});
+                    $('#letter' + indexOfDeletedLetter).css({'background-color': 'white'});
                     usedIndices[indexOfDeletedLetter] = 0;
                 }
             }
@@ -111,22 +154,33 @@ function setWordInputBehaviour() {
     $('#wordInput').keypress(function(e) {
         /* On enter pressed */
         if (e.keyCode == 13) {
-            var word = $('#wordInput').val().toLowerCase();
+            var word = $('#wordInput').val().toUpperCase();
 
             /* Too short / long word */
-            if (word.length < 4 || word.length > 9) {
-                /* Clear */
-                for (i = 0; i < 9; i++) {
-                    usedIndices[i] = 0;
-                    $('#letter' + i).css({'background-color': 'gray'});
-                }
-                $('#wordInput').val('');
+            if (word.length < 4) {
+                new PNotify({
+                    title: 'Oh no',
+                    text: 'At least 4 letters required',
+                    type: 'error',
+                    animate_speed: 'fast',
+                    hide: true,
+                    delay: notificationDelay
+                });
 
                 return true;
             }
 
             /* Already used word */
             if (usedWords.indexOf(word) != -1) {
+                new PNotify({
+                    title: 'Oh no',
+                    text: 'You have already used this word',
+                    type: 'error',
+                    animate_speed: 'fast',
+                    hide: true,
+                    delay: notificationDelay
+                });
+
                 $('#wordInput').css({'background-color': 'red'});
                 setTimeout(function() {
                     $('#wordInput').css({'background-color': 'white'});
@@ -135,7 +189,7 @@ function setWordInputBehaviour() {
                 /* Clear */
                 for (i = 0; i < 9; i++) {
                     usedIndices[i] = 0;
-                    $('#letter' + i).css({'background-color': 'gray'});
+                    $('#letter' + i).css({'background-color': 'white'});
                 }
                 $('#wordInput').val('');
 
@@ -143,9 +197,18 @@ function setWordInputBehaviour() {
             }
 
             /* Ask server for validation */
-            $.get("/" + word, function(data) {
+            $.get("/" + word.toLowerCase(), function(data) {
                 /* Valid */
                 if (data == "1") {
+                    new PNotify({
+                        title: 'Congrats',
+                        text: 'Correct word',
+                        type: 'success',
+                        animate_speed: 'fast',
+                        hide: true,
+                        delay: notificationDelay
+                    });
+
                     score = score + 1;
                     timer = timer + 10;
                     $('#Score').html("Score: " + score.toString());
@@ -163,6 +226,15 @@ function setWordInputBehaviour() {
 
                 /* Invalid */
                 else {
+                    new PNotify({
+                        title: 'Oh no!',
+                        text: 'Incorrect word',
+                        type: 'error',
+                        animate_speed: 'fast',
+                        hide: true,
+                        delay: notificationDelay
+                    });
+
                     $('#wordInput').css({'background-color': 'red'});
                     setTimeout(function() {
                         $('#wordInput').css({'background-color': 'white'});
@@ -172,7 +244,7 @@ function setWordInputBehaviour() {
                 /* Clear */
                 for (i = 0; i < 9; i++) {
                     usedIndices[i] = 0;
-                    $('#letter' + i).css({'background-color': 'gray'});
+                    $('#letter' + i).css({'background-color': 'white'});
                 }
                 $('#wordInput').val('');
             });
@@ -180,20 +252,29 @@ function setWordInputBehaviour() {
 
         /* On normal key pressed */
         else {
-            var lastLetter = String.fromCharCode(e.keyCode).toLowerCase();
+            var lastLetter = String.fromCharCode(e.keyCode).toUpperCase();
 
             /* Update letter if diacritice */
             lastLetter = lastLetter in diacritice ? diacritice[lastLetter] : lastLetter;
 
             /* Valid letter */
-            var indexOfLastLetter = letters.toLowerCase().indexOf(lastLetter);
+            var indexOfLastLetter = letters.indexOf(lastLetter);
             while (usedIndices[indexOfLastLetter] == 1) {
-                indexOfLastLetter = letters.toLowerCase().indexOf(lastLetter, indexOfLastLetter + 1);
+                indexOfLastLetter = letters.indexOf(lastLetter, indexOfLastLetter + 1);
             }
             if (indexOfLastLetter > -1) {
                 $('#letter' + indexOfLastLetter).css({'background-color': 'red'});
                 usedIndices[indexOfLastLetter] = 1;
             } else {
+                new PNotify({
+                    title: 'Oh no',
+                    text: "You can't use this letter",
+                    type: 'error',
+                    animate_speed: 'fast',
+                    hide: true,
+                    delay: notificationDelay
+                });
+
                 return false;
             }
         }
