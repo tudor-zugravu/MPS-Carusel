@@ -1,0 +1,8 @@
+{
+  "name": "Caruselul Literelor",
+  "description": "Proiect 1 MPS",
+  "repository": "https://github.com/tudor-zugravu/MPS-Carusel",
+  "logo": "",
+  "keywords": ["node", "express", "static", "litere"],
+  "image": ""
+}
