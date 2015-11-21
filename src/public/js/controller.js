@@ -1,18 +1,32 @@
 /*** VARIABLES ***************************************************************/
 
-/* Array with 9 entries where the i-th entry contains the possible values of
- * the i-th letter. */
-var diceInput = [
-    "AAUIHJ", /* 0 */
-    "TRNSMB", /* 1 */
-    "AARCDM", /* 2 */
-    "EEIODF", /* 3 */
-    "ARUSFV", /* 4 */
-    "TLNPGC", /* 5 */
-    "AIOEXZ", /* 6 */
-    "NSTRGB", /* 7 */
-    "IIUELP"  /* 8 */
-];
+var letter_freq_rank = {
+    "A" : 14.92,
+    "E" : 11.47,
+    "I" : 11.36,
+    "T" : 7.04,
+    "R" : 6.82,
+    "N" : 6.47,
+    "U" : 6.20,
+    "S" : 5.95,
+    "C" : 5.28,
+    "L" : 4.48,
+    "O" : 4.07,
+    "D" : 3.45,
+    "P" : 3.18,
+    "M" : 3.10,
+    "V" : 1.23,
+    "F" : 1.18,
+    "B" : 1.07,
+    "G" : 0.99,
+    "Z" : 0.71,
+    "H" : 0.47,
+    "J" : 0.24,
+    "X" : 0.11,
+    "K" : 0.11,
+    "Y" : 0.07,
+    "W" : 0.03
+}
 
 /* Romanian diacritical. This object is used in order to allow the usage of
  * a normal letter as every corresponsing diacritical. For example, the letter
@@ -149,8 +163,27 @@ function updateTimer() {
 
 /* Set letters values. Every letter gets a random value from its seed. */
 function setLetters() {
-    for (i = 0; i < 9; i++) {
-        var letter = diceInput[i].charAt(Math.floor(Math.random() * 6));
+    /* Build probability */
+    var last_key = null;
+    for (var i in letter_freq_rank) {
+        if (last_key != null) {
+            letter_freq_rank[i] += letter_freq_rank[last_key];
+        }
+        last_key = i;
+    }
+
+    /* Choose letter */
+    var letter = 'Z';
+    for (var i = 0; i < 9; i++) {
+        var rand = Math.floor(Math.random() * 100);
+
+        for (var j in letter_freq_rank) {
+            if (rand < letter_freq_rank[j]) {
+                letter = j;
+                break;
+            }
+        }
+
         $('#letter' + i).html(letter);
         letters += letter;
     }
@@ -313,7 +346,7 @@ function setWordInputBehaviour() {
             else {
                 new PNotify({
                     title: 'Oh no',
-                    text: "You can't use this letter",
+                    text: "You can't use " + lastLetter,
                     type: 'error',
                     animate_speed: 'fast',
                     hide: true,
