@@ -27,6 +27,8 @@ var timer = 60;
 var usedWords = [];
 var myVar;
 
+var notificationDelay = 2000;
+
 /*****************************************************************************/
 
 
@@ -41,11 +43,6 @@ $(document).ready(function() {
     setButtonBehaviour();
 
     myVar = setInterval(function(){ updateTimer() }, 1000);
-
-    PNotify.prototype.options.delay ? (function() {
-        PNotify.prototype.options.delay -= 500;
-        update_timer_display();
-    }()) : (alert('Timer is already at zero.'))
 });
 
 /*****************************************************************************/
@@ -145,6 +142,15 @@ function setWordInputBehaviour() {
             $.get("/" + word.toLowerCase(), function(data) {
                 /* Valid */
                 if (data == "1") {
+                    new PNotify({
+                        title: 'Congrats',
+                        text: 'Correct word',
+                        type: 'success',
+                        animate_speed: 'fast',
+                        hide: true,
+                        delay: notificationDelay
+                    });
+
                     score = score + 1;
                     timer = timer + 10;
                     $('#Score').html("Score: " + score.toString());
@@ -162,6 +168,15 @@ function setWordInputBehaviour() {
 
                 /* Invalid */
                 else {
+                    new PNotify({
+                        title: 'Oh no!',
+                        text: 'Incorrect word',
+                        type: 'error',
+                        animate_speed: 'fast',
+                        hide: true,
+                        delay: notificationDelay
+                    });
+
                     $('#wordInput').css({'background-color': 'red'});
                     setTimeout(function() {
                         $('#wordInput').css({'background-color': 'white'});
