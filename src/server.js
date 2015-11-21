@@ -55,11 +55,16 @@ app.get('/:word', function(req, res) {
     var name = req.params.word.substring(firstColon + 1, secondColon);
     var score = parseInt(req.params.word.substring(secondColon + 1), 10);
 
+    var highscoreInMiddle = false;
     for (var i = 0; i < highscores.length; i++) {
       if (highscores[i].score < score) {
         highscores.splice(i, 0, {name: name, score: score});
+        highscoreInMiddle = true;
         break;
       }
+    }
+    if (highscoreInMiddle == false) {
+      highscores.push({name: name, score: score});
     }
     highscores.splice(maxHighscores);
     res.send("1");
