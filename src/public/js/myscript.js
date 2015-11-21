@@ -42,12 +42,10 @@ $(document).ready(function() {
 
     myVar = setInterval(function(){ updateTimer() }, 1000);
 
-    new PNotify({
-      title: 'TRY AGAIN',
-      text: 'The word is NOT correct! Try Again',
-      type: 'error',
-      animate_speed: 100
-  });
+    PNotify.prototype.options.delay ? (function() {
+        PNotify.prototype.options.delay -= 500;
+        update_timer_display();
+    }()) : (alert('Timer is already at zero.'))
 });
 
 /*****************************************************************************/
@@ -117,7 +115,13 @@ function setWordInputBehaviour() {
 
             /* Too short / long word */
             if (word.length < 4 || word.length > 9) {
+                /* Clear */
+                for (i = 0; i < 9; i++) {
+                    usedIndices[i] = 0;
+                    $('#letter' + i).css({'background-color': 'gray'});
+                }
                 $('#wordInput').val('');
+
                 return true;
             }
 
