@@ -25,8 +25,7 @@ var usedIndices = [0, 0, 0, 0, 0, 0, 0, 0, 0];
 var score = 0;
 var timer = 60;
 var usedWords = [];
-var myVar;
-
+var timerInterval;
 var notificationDelay = 2000;
 
 /*****************************************************************************/
@@ -42,7 +41,7 @@ $(document).ready(function() {
     setWordInputBehaviour();
     setButtonBehaviour();
 
-    myVar = setInterval(function(){ updateTimer() }, 1000);
+    timerInterval = setInterval(function(){ updateTimer() }, 1000);
 });
 
 /*****************************************************************************/
@@ -64,7 +63,7 @@ function updateTimer() {
             dialog.close();
         };
 
-        clearTimeout(myVar);
+        clearTimeout(timerInterval);
     } else {
         timer = timer - 1;
     }
@@ -110,19 +109,30 @@ function setWordInputBehaviour() {
             var word = $('#wordInput').val().toUpperCase();
 
             /* Too short / long word */
-            if (word.length < 4 || word.length > 9) {
-                /* Clear */
-                for (i = 0; i < 9; i++) {
-                    usedIndices[i] = 0;
-                    $('#letter' + i).css({'background-color': 'white'});
-                }
-                $('#wordInput').val('');
+            if (word.length < 4) {
+                new PNotify({
+                    title: 'Oh no',
+                    text: 'At least 4 letters required',
+                    type: 'error',
+                    animate_speed: 'fast',
+                    hide: true,
+                    delay: notificationDelay
+                });
 
                 return true;
             }
 
             /* Already used word */
             if (usedWords.indexOf(word) != -1) {
+                new PNotify({
+                    title: 'Oh no',
+                    text: 'You have already used this word',
+                    type: 'error',
+                    animate_speed: 'fast',
+                    hide: true,
+                    delay: notificationDelay
+                });
+
                 $('#wordInput').css({'background-color': 'red'});
                 setTimeout(function() {
                     $('#wordInput').css({'background-color': 'white'});
@@ -208,6 +218,15 @@ function setWordInputBehaviour() {
                 $('#letter' + indexOfLastLetter).css({'background-color': 'red'});
                 usedIndices[indexOfLastLetter] = 1;
             } else {
+                new PNotify({
+                    title: 'Oh no',
+                    text: "You can't use this letter",
+                    type: 'error',
+                    animate_speed: 'fast',
+                    hide: true,
+                    delay: notificationDelay
+                });
+
                 return false;
             }
         }
