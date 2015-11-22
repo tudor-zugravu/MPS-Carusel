@@ -59,6 +59,9 @@ var notificationDelay = 2000; /* How much time in milliseconds the
 var usedIndices = [0, 0, 0, 0, 0, 0, 0, 0, 0]; /* Array with 9 values used to
                                                 * mark the used used letters */
 
+var validationInProgress = false; /* Used to block the validation of a word
+                                   * until the last word is validated. */
+
 /*****************************************************************************/
 
 
@@ -114,7 +117,7 @@ function updateTimer() {
             /* Don't allow names with less than 3 characters */
             if (name.length < 3) {
                 new PNotify({
-                    title: 'Oh no',
+                    title: 'Oh No!',
                     text: "Your name must have at least 3 characters",
                     type: 'error',
                     animate_speed: 'fast',
@@ -227,12 +230,25 @@ function setWordInputBehaviour() {
     $('#wordInput').keypress(function(e) {
         /* On enter pressed */
         if (e.keyCode == 13) {
+            if (validationInProgress ==  true) {
+                new PNotify({
+                    title: 'Info',
+                    text: "I'm still validating your last word",
+                    type: 'info',
+                    animate_speed: 'fast',
+                    hide: true,
+                    delay: notificationDelay
+                });
+
+                return true;
+            }
+
             var word = $('#wordInput').val().toUpperCase();
 
             /* Word is too short */
             if (word.length < 4) {
                 new PNotify({
-                    title: 'Oh no',
+                    title: 'Oh No!',
                     text: 'At least 4 letters required',
                     type: 'error',
                     animate_speed: 'fast',
@@ -246,7 +262,7 @@ function setWordInputBehaviour() {
             /* Already used word */
             if (usedWords.indexOf(word) != -1) {
                 new PNotify({
-                    title: 'Oh no',
+                    title: 'Oh No!',
                     text: 'You have already used this word',
                     type: 'error',
                     animate_speed: 'fast',
@@ -268,6 +284,8 @@ function setWordInputBehaviour() {
 
                 return true;
             }
+
+            validationInProgress = true;
 
             /* Ask server for validation */
             $.get("/" + word.toLowerCase(), function(data) {
@@ -303,7 +321,7 @@ function setWordInputBehaviour() {
                 /* Invalid word */
                 else {
                     new PNotify({
-                        title: 'Oh no!',
+                        title: 'Oh No!!',
                         text: 'Incorrect word',
                         type: 'error',
                         animate_speed: 'fast',
@@ -323,6 +341,8 @@ function setWordInputBehaviour() {
                     $('#letter' + i).css({'background-color': 'white'});
                 }
                 $('#wordInput').val('');
+
+                validationInProgress = false;
             });
         }
 
@@ -352,7 +372,7 @@ function setWordInputBehaviour() {
             /* Invalid letter */
             else {
                 new PNotify({
-                    title: 'Oh no',
+                    title: 'Oh No!',
                     text: "You can't use " + lastLetter,
                     type: 'error',
                     animate_speed: 'fast',
