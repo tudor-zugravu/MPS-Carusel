@@ -205,7 +205,7 @@ function setWordInputBehaviour() {
             var word = $('#wordInput').val().toUpperCase();
             /* Look for deleted letter and mark it as unused */
             if (word.length >= 1) {
-                var deletedLetter = word.slice(-1);
+                var deletedLetter = word[this.selectionStart - 1];
 
                 /* Convert diacritical to corresponding value. */
                 deletedLetter = deletedLetter in diacritical ?
